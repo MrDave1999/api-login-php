@@ -24,8 +24,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'full_name', 
         'last_name',
         'email',
-        'phone',
-        'role_id'
+        'phone'
     ];
 
     /**
@@ -33,7 +32,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array
      */
-    protected $hidden = [];
+    protected $hidden = ['password'];
 
     public $timestamps = false;
 
