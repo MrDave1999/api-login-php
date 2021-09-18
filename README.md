@@ -4,6 +4,8 @@ This repository shows a simple example of how to create a token-based authentica
 
 ## Installation
 
+### On Linux:
+
 **1.** Clone the repository:
 ```git
 git clone https://github.com/MrDave1999/api-login-php.git
@@ -25,7 +27,7 @@ sudo usermod -aG www-data $USER
 sudo chmod -R g+w ./bootstrap
 ```
 
-**5.** Copy the contents of .env.example to .env:
+**5.** Copy the contents of `.env.example` to `.env`:
 ```
 cp .env.example .env
 ```
@@ -45,6 +47,37 @@ docker-compose up --build -d
 http://localhost:8080/
 ```
 
+### On Windows:
+
+**1.** Clone the repository:
+```git
+git clone https://github.com/MrDave1999/api-login-php.git
+```
+
+**2.** Change directory:
+```
+cd api-login-php
+```
+
+**3.** Copy the contents of `.env.example` to `.env`:
+```
+xcopy .env.example .env
+```
+
+**4.**  Install the project dependencies:
+```
+docker run --rm -it -v %cd%:/app composer install
+```
+
+**5.** Build the image and initiate services:
+```
+docker-compose up --build -d
+```
+
+**6.** Access the application with this URL:
+```
+http://localhost:8080/
+```
 ## Documentation
 
 Consult the [wiki](https://github.com/MrDave1999/api-login-php/wiki/Endpoints) to find out what the endpoints are and what they mean.
