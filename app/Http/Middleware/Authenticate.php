@@ -19,8 +19,9 @@ class Authenticate
         {
             $payload = UserToken::decode($jwt);
             $user = $request->user();
-            $user->fill($payload);
-            $user->role_id = $payload['role_id'];
+            $user->id        = $payload['user_id'];
+            $user->username  = $payload['username'];
+            $user->role_id   = $payload['role_id'];
             $user->role_name = $payload['role_name'];
         }
         catch(\Exception $e)

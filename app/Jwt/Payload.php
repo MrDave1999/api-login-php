@@ -21,7 +21,12 @@ class Payload
             'iss'  => $_ENV['APP_URL'],                  // Issuer
             'nbf'  => $issuedAt->getTimestamp(),         // Not before
             'exp'  => $expire,                           // Expire
-            'data' => $user                              // Data User
+            'data' => [                                  // Data User
+                'user_id'   => $user->id,
+                'username'  => $user->username,
+                'role_id'   => $user->role_id,
+                'role_name' => $user->role_name
+            ]
         ];
     }
 }
