@@ -3,16 +3,15 @@ namespace App\Http\BusinessLayer;
 
 use App\Constants\StatusCodes;
 use App\Http\Repositories\UserRepository;
-use App\Jwt\UserToken;
+use App\Jwt\IUserToken;
 use App\Utils\Response;
 
 class User 
 {
-    protected $userRepository;
-
-    public function __construct(UserRepository $userRepository)
+    public function __construct(
+        private UserRepository $userRepository, 
+        private IUserToken $userToken)
     {
-        $this->userRepository = $userRepository;
     }
 
     public function index()
@@ -27,7 +26,7 @@ class User
             return Response::error('The user name '. $data['username'] . ' already exists!');
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         $user = $this->userRepository->save($data);
-        $token = UserToken::encode($user);
+        $token = $this->userToken->encode($user);
         $data = ['user_id' => $user->id, 'token' => $token];
 
         return Response::success('You have successfully registered!', $data, StatusCodes::CREATED);

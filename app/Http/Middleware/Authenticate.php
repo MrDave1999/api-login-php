@@ -3,21 +3,26 @@
 namespace App\Http\Middleware;
 
 use App\Constants\StatusCodes;
-use App\Jwt\UserToken;
+use App\Jwt\IUserToken;
 use App\Utils\Response;
 use Firebase\JWT\ExpiredException;
 use Closure;
 
 class Authenticate
 {
-    public function handle($request, Closure $next, $guard = null)
+    public function __construct(private IUserToken $userToken)
+    {
+        
+    }
+
+    public function handle($request, Closure $next)
     {
         $jwt = $request->header('authorization');
         if(!$jwt)
             return Response::error('Token is required!');
         try 
         {
-            $payload = UserToken::decode($jwt);
+            $payload = $this->userToken->decode($jwt);
             $user = $request->user();
             $user->id        = $payload['user_id'];
             $user->username  = $payload['username'];

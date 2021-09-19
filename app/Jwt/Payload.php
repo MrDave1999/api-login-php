@@ -3,16 +3,16 @@ namespace App\Jwt;
 
 use App\Models\User;
 
-class Payload 
+class Payload implements IPayload
 {
-    public static function get()
+    public function get()
     {
         $jwt = request()->header('Authorization');
         $payload = explode('.', $jwt)[1];
         return json_decode(base64_decode($payload), true)['data'];
     }
 
-    public static function create(User $user)
+    public function create(User $user)
     {
         $issuedAt   = new \DateTimeImmutable();
         $expire     = $issuedAt->modify($_ENV['JWT_EXPIRE'])->getTimestamp();
