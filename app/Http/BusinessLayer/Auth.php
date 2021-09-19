@@ -2,14 +2,17 @@
 namespace App\Http\BusinessLayer;
 
 use App\Http\Repositories\UserRepository;
-use App\Jwt\UserToken;
-use App\Utils\Response;
+use App\Jwt\IUserToken;
+use App\Utils\IResponse;
 
 class Auth 
 {
     protected $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(
+        UserRepository $userRepository, 
+        private IResponse $response,
+        private IUserToken $userToken)
     {
         $this->userRepository = $userRepository;
     }
@@ -18,9 +21,9 @@ class Auth
     {
         $user = $this->userRepository->get($data['username']);
         if(is_null($user) || !password_verify($data['password'], $user['password']))
-            return Response::error('The username or password is incorrect!');
-        $user->token = UserToken::encode($user);
+            return $this->response->error('The username or password is incorrect!');
+        $user->token = $this->userToken->encode($user);
         
-        return Response::success('You have successfully logged in!', $user);
+        return $this->response->success('You have successfully logged in!', $user);
     }
 }

@@ -2,9 +2,9 @@
 namespace App\Utils;
 use App\Constants\StatusCodes;
 
-class Response 
+class Response implements IResponse
 {
-    public static function success(string $message, $data = null, $status = StatusCodes::OK)
+    public function success(string $message, $data = null, $status = StatusCodes::OK)
     {
         return response()->json([
             'status' => $status,
@@ -13,7 +13,7 @@ class Response
         ], $status);
     }
 
-    public static function error(string $message, $status = StatusCodes::INTERNAL_ERROR)
+    public function error(string $message, $status = StatusCodes::INTERNAL_ERROR)
     {
         return response()->json([
             'status' => $status,
