@@ -19,7 +19,13 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->group(['middleware' => 'auth'], function () use ($router) {
-        $router->get('user', 'UserController@get');
+
+        $router->group(['prefix' => 'user'], function () use ($router) {
+            $router->get('/', 'UserController@get');
+            $router->put('/', 'UserController@edit');
+            $router->delete('/', 'UserController@delete');
+        });
+
     });
     $router->post('login', 'AuthController@login');
     $router->post('users', 'UserController@create');
@@ -27,7 +33,14 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->group(['middleware' => ['auth', 'role:admin']], function () use ($router) {
-        $router->get('users', 'UserController@index');
-        $router->get('users/{name}', 'UserController@show');
+
+        $router->group(['prefix' => 'users'], function () use ($router) {
+            $router->get('/', 'UserController@index');
+            $router->get('/{name}', 'UserController@show');
+            $router->put('/{name}', 'UserController@update');
+            $router->delete('/{name}', 'UserController@destroy');
+        });
+
+        
     });
 });
