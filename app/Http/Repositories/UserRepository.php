@@ -2,7 +2,7 @@
 namespace App\Http\Repositories;
 use App\Models\User;
 
-class UserRepository extends BaseRepository
+class UserRepository extends BaseRepository implements IUserRepository
 {
     public function __construct(User $user)
     {

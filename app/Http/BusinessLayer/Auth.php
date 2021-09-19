@@ -1,20 +1,17 @@
 <?php 
 namespace App\Http\BusinessLayer;
 
-use App\Http\Repositories\UserRepository;
+use App\Http\Repositories\IUserRepository;
 use App\Jwt\IUserToken;
 use App\Utils\IResponse;
 
 class Auth 
 {
-    protected $userRepository;
-
     public function __construct(
-        UserRepository $userRepository, 
+        private IUserRepository $userRepository, 
         private IResponse $response,
         private IUserToken $userToken)
     {
-        $this->userRepository = $userRepository;
     }
 
     public function login(array $data)

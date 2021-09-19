@@ -2,14 +2,14 @@
 namespace App\Http\BusinessLayer;
 
 use App\Constants\StatusCodes;
-use App\Http\Repositories\UserRepository;
+use App\Http\Repositories\IUserRepository;
 use App\Jwt\IUserToken;
 use App\Utils\IResponse;
 
 class User 
 {
     public function __construct(
-        private UserRepository $userRepository, 
+        private IUserRepository $userRepository, 
         private IUserToken $userToken,
         private IResponse $response)
     {

@@ -2,13 +2,11 @@
 namespace App\Http\Repositories;
 use Illuminate\Database\Eloquent\Model;
 
-class BaseRepository
+class BaseRepository implements IBaseRepository
 {
-    protected $model;
-
-    public function __construct(Model $model)
+    public function __construct(private Model $model)
     {
-        $this->model = $model;
+        
     }
 
     function isExists(string $attribute, $value)
