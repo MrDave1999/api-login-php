@@ -6,6 +6,8 @@ use App\Http\Repositories\IUserRepository;
 use App\Http\Repositories\UserRepository;
 use App\Jwt\IPayload;
 use App\Jwt\IUserToken;
+use App\Jwt\Payload;
+use App\Jwt\UserToken;
 use App\Utils\IResponse;
 use App\Utils\Response;
 use Illuminate\Support\ServiceProvider;
