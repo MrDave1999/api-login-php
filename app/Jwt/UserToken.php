@@ -14,12 +14,12 @@ class UserToken implements IUserToken
     public function encode(User $user)
     {
         $payload = $this->payload->create($user);
-        return JWT::encode($payload, $_ENV['JWT_SECRET'], $_ENV['JWT_ALLOWED_ALG']);
+        return JWT::encode($payload, ENV('JWT_SECRET'), ENV('JWT_ALLOWED_ALG'));
     }
 
     public function decode(string $jwt)
     {
-        $payload = JWT::decode($jwt, $_ENV['JWT_SECRET'], [$_ENV['JWT_ALLOWED_ALG']]);
+        $payload = JWT::decode($jwt, ENV('JWT_SECRET'), [ENV('JWT_ALLOWED_ALG')]);
         return (array)$payload->data;
     }
 }

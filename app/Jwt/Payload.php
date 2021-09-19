@@ -15,10 +15,10 @@ class Payload implements IPayload
     public function create(User $user)
     {
         $issuedAt   = new \DateTimeImmutable();
-        $expire     = $issuedAt->modify($_ENV['JWT_EXPIRE'])->getTimestamp();
+        $expire     = $issuedAt->modify(ENV('JWT_EXPIRE'))->getTimestamp();
         return [
             'iat'  => $issuedAt->getTimestamp(),         // Issued at: time when the token was generated
-            'iss'  => $_ENV['APP_URL'],                  // Issuer
+            'iss'  => ENV('APP_URL'),                  // Issuer
             'nbf'  => $issuedAt->getTimestamp(),         // Not before
             'exp'  => $expire,                           // Expire
             'data' => [                                  // Data User
