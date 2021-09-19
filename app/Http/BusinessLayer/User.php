@@ -5,7 +5,6 @@ use App\Constants\StatusCodes;
 use App\Http\Repositories\UserRepository;
 use App\Jwt\UserToken;
 use App\Utils\Response;
-use Illuminate\Support\Facades\Auth;
 
 class User 
 {
@@ -43,8 +42,32 @@ class User
         return Response::success('User information successfully obtained!', $user);
     }
 
-    public function get()
+    public function get(string $username)
     {
-       return Response::success('Information successfully retrieved!', Auth::user());
+        $user = $this->userRepository->get($username);
+       return Response::success('Information successfully retrieved!', $user);
+    }
+
+    public function edit(string $username, array $data)
+    {
+        if(isset($data['username']) && $this->userRepository->isExists('username', $data['username']))
+            return Response::error('The ' . $data['username'] . ' user already exists!');
+
+        if(isset($data['password']))
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+        $user = $this->userRepository->update($username, $data);
+        if(!$user)
+            return Response::error('The ' . $username . ' user is incorrect!');
+
+        return Response::success('The information was successfully updated!', $user);
+    }
+
+    public function delete(string $username)
+    {
+        if($this->userRepository->delete($username) === 0)
+            return Response::error('The ' . $username . ' user does not exist!');
+        
+        return Response::success('The account was successfully deleted!');
     }
 }

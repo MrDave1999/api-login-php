@@ -35,4 +35,19 @@ class UserRepository extends BaseRepository
         $this->model->role_name = 'user';
         return $this->model;
     }
+
+    public function update(string $username, array $data)
+    {
+        $user = $this->model->where('username', $username)->first();
+        if(is_null($user))
+            return false;
+        $user->fill($data);
+        $user->save();
+        return $user;
+    }
+
+    public function delete(string $username)
+    {
+        return $this->model->where('username', $username)->delete();
+    }
 }

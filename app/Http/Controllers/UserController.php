@@ -29,8 +29,28 @@ class UserController extends Controller
         return $this->user->show($name);
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        return $this->user->get();
+        return $this->user->get($request->user()->username);
+    }
+
+    public function edit(Request $request)
+    {
+        return $this->user->edit($request->user()->username, $request->all());
+    }
+
+    public function update(Request $request, string $name)
+    {
+        return $this->user->edit($name, $request->all());
+    }
+
+    public function delete(Request $request)
+    {
+        return $this->user->delete($request->user()->username);
+    }
+
+    public function destroy(string $name)
+    {
+        return $this->user->delete($name);
     }
 }
