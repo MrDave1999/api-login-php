@@ -7,11 +7,9 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    protected $user;
-
-    public function __construct(User $user)
+    public function __construct(private User $user)
     {
-        $this->user = $user;
+
     }
 
     public function index()
