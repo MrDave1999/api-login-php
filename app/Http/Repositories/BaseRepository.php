@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseRepository implements IBaseRepository
 {
-    public function __construct(private Model $model)
+    public function __construct(protected Model $model)
     {
         
     }
