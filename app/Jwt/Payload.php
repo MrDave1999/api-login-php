@@ -21,7 +21,7 @@ class Payload implements IPayload
             'iss'  => ENV('APP_URL'),                  // Issuer
             'nbf'  => $issuedAt->getTimestamp(),         // Not before
             'exp'  => $expire,                           // Expire
-            'data' => [                                  // Data User
+            'sub' => [                                  // Data User
                 'user_id'   => $user->id,
                 'username'  => $user->username,
                 'role_id'   => $user->role_id,
