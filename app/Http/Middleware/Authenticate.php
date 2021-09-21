@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use App\Constants\StatusCodes;
 use App\Jwt\IUserToken;
 use App\Utils\IResponse;
-use Firebase\JWT\ExpiredException;
 use Closure;
 
 class Authenticate
@@ -19,23 +18,19 @@ class Authenticate
     {
         $jwt = $request->header('authorization');
         if(!$jwt)
-            return $this->response->error('Token is required!');
-        try 
-        {
-            $payload = $this->userToken->decode($jwt);
-            $user = $request->user();
-            $user->id        = $payload['user_id'];
-            $user->username  = $payload['username'];
-            $user->role_id   = $payload['role_id'];
-            $user->role_name = $payload['role_name'];
-        }
-        catch(\Exception $e)
-        {
-            if($e instanceof ExpiredException)
-                return $this->response->error('Token has expired!', StatusCodes::UNAUTHORIZED);
-            
-            return $this->response->error('Token is invalid!', StatusCodes::UNAUTHORIZED);
-        }
+            return $this->response->error('Token is required!', StatusCodes::UNAUTHORIZED);
+
+        $result = $this->userToken->decode($jwt);
+        if($result['error'])
+            return $this->response->error($result['message'], StatusCodes::UNAUTHORIZED);
+        
+        $payload = $result['payload'];
+        $user = $request->user();
+        $user->id        = $payload['user_id'];
+        $user->username  = $payload['username'];
+        $user->role_id   = $payload['role_id'];
+        $user->role_name = $payload['role_name'];
+
         return $next($request);
     }
 }
