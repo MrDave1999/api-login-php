@@ -1,15 +1,6 @@
 <?php
 
 namespace App\Providers;
-
-use App\Http\Repositories\IUserRepository;
-use App\Http\Repositories\UserRepository;
-use App\Jwt\IPayload;
-use App\Jwt\IUserToken;
-use App\Jwt\Payload;
-use App\Jwt\UserToken;
-use App\Utils\IResponse;
-use App\Utils\Response;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,9 +12,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(IUserToken::class, UserToken::class);
-        $this->app->bind(IPayload::class, Payload::class);
-        $this->app->bind(IResponse::class, Response::class);
-        $this->app->bind(IUserRepository::class, UserRepository::class);
+        $this->app->bind(\App\Jwt\IUserToken::class, \App\Jwt\UserToken::class);
+        $this->app->bind(\App\Jwt\IPayload::class, \App\Jwt\Payload::class);
+        $this->app->bind(\App\Utils\IResponse::class, \App\Utils\Response::class);
+        $this->app->bind(\App\Http\Repositories\IUserRepository::class, \App\Http\Repositories\UserRepository::class);
     }
 }
