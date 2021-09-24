@@ -6,7 +6,7 @@ use App\Http\Repositories\IUserRepository;
 use App\Jwt\IUserToken;
 use App\Utils\IResponse;
 
-class User 
+class User implements IUser
 {
     public function __construct(
         private IUserRepository $userRepository, 

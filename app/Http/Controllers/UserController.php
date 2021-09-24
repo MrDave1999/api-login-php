@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\BusinessLayer\User;
+use App\Http\BusinessLayer\IUser;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function __construct(private User $user)
+    public function __construct(private IUser $user)
     {
 
     }
