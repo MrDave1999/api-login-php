@@ -1,12 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Http\BusinessLayer\Auth;
+use App\Http\BusinessLayer\IAuth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function __construct(private Auth $auth)
+    public function __construct(private IAuth $auth)
     {
         
     }

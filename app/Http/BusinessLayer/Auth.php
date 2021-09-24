@@ -5,7 +5,7 @@ use App\Http\Repositories\IUserRepository;
 use App\Jwt\IUserToken;
 use App\Utils\IResponse;
 
-class Auth 
+class Auth implements IAuth
 {
     public function __construct(
         private IUserRepository $userRepository, 
