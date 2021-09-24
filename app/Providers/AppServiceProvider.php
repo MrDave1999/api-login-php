@@ -16,5 +16,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Jwt\IPayload::class, \App\Jwt\Payload::class);
         $this->app->bind(\App\Utils\IResponse::class, \App\Utils\Response::class);
         $this->app->bind(\App\Http\Repositories\IUserRepository::class, \App\Http\Repositories\UserRepository::class);
+        $this->app->bind(\App\Http\BusinessLayer\IAuth::class, \App\Http\BusinessLayer\Auth::class);
+        $this->app->bind(\App\Http\BusinessLayer\IUser::class, \App\Http\BusinessLayer\User::class);
     }
 }
